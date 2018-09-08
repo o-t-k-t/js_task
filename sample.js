@@ -12,12 +12,8 @@ $(document).ready(function(){
                           Number($('#society').val())
                           ];
 
-    // さらにこのような記述をすることで、「合計点：」となっている右の部分に合計点が出力される
-    let sum = subject_points[0];
-    sum = sum + subject_points[1];
-    sum = sum + subject_points[2];
-    sum = sum + subject_points[3];
-    sum = sum + subject_points[4];
+    let sum = subject_points.reduce( function (acc, cur) { return acc + cur; }, 0);
+
     $("#sum_indicate").text(sum); // ID:sum_indicateが付与されたHTML要素のテキスト部を変数sumの内容に上書きする
 
     // ここに、上記を参考にして平均点を出力する処理を書き込む
@@ -52,15 +48,8 @@ $(document).ready(function(){
                           Number($('#science').val()),
                           Number($('#society').val())
                           ];
-    let result = "合格";
-    
-    for (let pi = 0; pi < subject_points.length; pi++) {
-      if (subject_points[pi] < 60) {
-        result = "不合格";
-        break;
-      }
-    }
-    
+    let result = subject_points.reduce( function (acc, cur) { return cur < 60 ? "不合格" : acc }, "合格");
+
     $("#judge").text(result);
   }
 
